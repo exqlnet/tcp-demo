@@ -13,13 +13,13 @@ int main(int argc, char** argv) {
   int sockfd, n;
   char recvline[MAXLINE], sendline[MAXLINE];
   sockaddr_in servaddr;
-  char* remote_addr = "127.0.0.1";
 
-
-  // if (argc != 2) {
-  //   printf("usage: ./client <ipaddress>\n");
-  //   return 0;
-  // }
+  char* remote_addr;
+  if (argc != 2) {
+    remote_addr = "127.0.0.1";
+  } else {
+    remote_addr = argv[1];
+  }
 
   if ((sockfd = socket(AF_INET, SOCK_STREAM, 0)) < 0) {
       printf("create socket error error: %s(errno: %d)\n", strerror(errno), errno);
