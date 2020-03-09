@@ -18,13 +18,14 @@ int length(T& data)
 int main(int argc, char** argv) {
   int listenfd, connfd;
 
-  const struct sockaddr_in servaddr = {
-    sin_family: AF_INET,
-    sin_addr: htonl(INADDR_ANY),
-    sin_port: htons(6666)
-  };
+  sockaddr_in servaddr;
   char buff[4096];
   int n;
+
+  memset(&servaddr, 0, sizeof(servaddr));
+  servaddr.sin_addr.s_addr = htonl(INADDR_ANY);
+  servaddr.sin_port = htons(6666);
+  servaddr.sin_family = AF_INET;
 
   printf("create socket...\n");
   if ((listenfd = socket(AF_INET, SOCK_STREAM, 0)) == -1) {
